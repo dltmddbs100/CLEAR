@@ -1,11 +1,10 @@
 # CLEAR: Cross-Lingual Enhancement in Retrieval via Reverse-training
 
-
 This repository contains the code for our paper [CLEAR: Cross-Lingual Enhancement in Retrieval via Reverse-training](not_yet). We propose more effective loss function than standard InfoNCE for Cross-lingual Information Retrieval. CLEAR outperforms InfoNCE and its latest variants across Belebele, XQuAD, and XOR-QA benchmarks under various settings.
 
 
 
-[CLEAR_fig.png](asset/CLEAR_fig.png)
+![CLEAR_fig.png](asset/CLEAR_fig.png)
 
 
 
