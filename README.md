@@ -1,10 +1,13 @@
 # CLEAR: Cross-Lingual Enhancement in Retrieval via Reverse-training
 
-<p align="center">
-  <img src="asset/CLEAR_fig.pdf" alt="CLEAR Architecture" width="600"/>
-</p>
 
-CLEAR is a training framework for cross-lingual dense retrieval models. It introduces a novel loss function that combines forward ranking loss, cross-lingual backward ranking loss, and optional KL divergence alignment to improve cross-lingual retrieval performance.
+This repository contains the code for our paper [CLEAR: Cross-Lingual Enhancement in Retrieval via Reverse-training](not_yet). We propose more effective loss function than standard InfoNCE for Cross-lingual Information Retrieval. CLEAR outperforms InfoNCE and its latest variants across Belebele, XQuAD, and XOR-QA benchmarks under various settings.
+
+
+
+[CLEAR_fig.pdf](asset/CLEAR_fig.pdf)
+
+
 
 ## Installation
 
@@ -17,7 +20,7 @@ CLEAR is a training framework for cross-lingual dense retrieval models. It intro
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/your-username/CLEAR.git
+git clone https://github.com/dltmddbs100/CLEAR.git
 cd CLEAR
 ```
 
