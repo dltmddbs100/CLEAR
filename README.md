@@ -45,7 +45,7 @@ pip install deepspeed==0.14.4
 ```
 
 ## Dataset Format
-
+We support an example training dataset at [here](/dataset/).
 Training data should be in JSONL format with the following columns:
 
 | Column | Description |
@@ -67,7 +67,7 @@ Example:
 }
 ```
 
-You can also use HuggingFace datasets by setting `--use_hf_dataset`.
+You can use HuggingFace datasets by setting `--use_hf_dataset`.
 
 ## Training
 
@@ -98,24 +98,9 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --nproc_per_node 4 --master_port 25055 tra
     --save_total_limit 1
 ```
 
-### Training Arguments
-
-| Argument | Default | Description |
-|----------|---------|-------------|
-| `--model_name_or_path` | `BAAI/bge-m3` | Base model to fine-tune |
-| `--dataset_path` | - | Path to training data (JSONL or HF dataset) |
-| `--use_hf_dataset` | `False` | Load dataset from HuggingFace format |
-| `--loss_name` | `CachedCLEARLoss` | Loss function to use |
-| `--alpha` | `0.4` | Weight for cross backward loss |
-| `--beta` | `0.2` | Weight for KL divergence loss |
-| `--kl_div` | `False` | Enable KL divergence alignment |
-| `--num_negative` | `5` | Number of hard negatives |
-| `--mini_batch_size` | `32` | Mini-batch size for gradient caching |
-| `--max_seq_length` | `512` | Maximum sequence length |
-
 ## Evaluation
 
-CLEAR uses a customized version of MTEB for evaluation on cross-lingual retrieval benchmarks.
+CLEAR uses a customized version of [MTEB](https://github.com/embeddings-benchmark/mteb) for evaluation on cross-lingual retrieval benchmarks.
 
 ### Evaluate on XQuAD
 
@@ -198,7 +183,7 @@ If you find this work useful, please cite:
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License.
 
 ## Acknowledgements
 
