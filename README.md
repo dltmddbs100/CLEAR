@@ -1,2 +1,204 @@
-# CLEAR
-[ACL 2026] Official code of "CLEAR: Cross-Lingual Enhancement in Retrieval via Reverse-training"
+# CLEAR: Cross-Lingual Enhancement in Retrieval via Reverse-training
+
+<p align="center">
+  <img src="asset/CLEAR_fig.pdf" alt="CLEAR Architecture" width="600"/>
+</p>
+
+CLEAR is a training framework for cross-lingual dense retrieval models. It introduces a novel loss function that combines forward ranking loss, cross-lingual backward ranking loss, and optional KL divergence alignment to improve cross-lingual retrieval performance.
+
+## Installation
+
+### Requirements
+
+- Python 3.8+
+- CUDA-compatible GPU (recommended)
+
+### Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/your-username/CLEAR.git
+cd CLEAR
+```
+
+2. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+This will install:
+- PyTorch 2.6.0
+- Transformers 4.45.0
+- Sentence-Transformers 3.4.1
+- Datasets 2.21.0
+- Accelerate 0.34.2
+- WandB (for logging)
+- Local MTEB package (from `./mteb`)
+
+### Optional: DeepSpeed Support
+
+For distributed training with DeepSpeed:
+```bash
+pip install deepspeed==0.14.4
+```
+
+## Dataset Format
+
+Training data should be in JSONL format with the following columns:
+
+| Column | Description |
+|--------|-------------|
+| `anchor` | Source language query |
+| `positive` | Positive document |
+| `negative_1` ... `negative_n` | Hard negative documents |
+| `cross_anchor` | Target language query (translation of anchor) |
+| `neg_query_1` ... `neg_query_n` | Hard negative queries in target language |
+
+Example:
+```json
+{
+  "anchor": "What is machine learning?",
+  "positive": "Machine learning is a subset of artificial intelligence...",
+  "negative_1": "Deep learning requires large datasets...",
+  "cross_anchor": "Was ist maschinelles Lernen?",
+  "neg_query_1": "Wie funktioniert künstliche Intelligenz?"
+}
+```
+
+You can also use HuggingFace datasets by setting `--use_hf_dataset`.
+
+## Training
+
+```bash
+export OMP_NUM_THREADS=32
+
+CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --nproc_per_node 4 --master_port 25055 train.py \
+    --model_name_or_path BAAI/bge-m3 \
+    --dataset_path dataset/train_example_de \
+    --output_dir ckpt/bge-m3-de-CLEAR \
+    --loss_name CachedCLEARLoss \
+    --alpha 0.4 \
+    --beta 0.2 \
+    --kl_div \
+    --use_hf_dataset \
+    --do_train \
+    --per_device_train_batch_size 64 \
+    --mini_batch_size 32 \
+    --learning_rate 5e-5 \
+    --max_steps 50 \
+    --warmup_ratio 0.05 \
+    --lr_scheduler_type cosine \
+    --max_seq_length 512 \
+    --bf16 \
+    --report_to wandb \
+    --save_strategy steps \
+    --save_steps 50 \
+    --save_total_limit 1
+```
+
+### Training Arguments
+
+| Argument | Default | Description |
+|----------|---------|-------------|
+| `--model_name_or_path` | `BAAI/bge-m3` | Base model to fine-tune |
+| `--dataset_path` | - | Path to training data (JSONL or HF dataset) |
+| `--use_hf_dataset` | `False` | Load dataset from HuggingFace format |
+| `--loss_name` | `CachedCLEARLoss` | Loss function to use |
+| `--alpha` | `0.4` | Weight for cross backward loss |
+| `--beta` | `0.2` | Weight for KL divergence loss |
+| `--kl_div` | `False` | Enable KL divergence alignment |
+| `--num_negative` | `5` | Number of hard negatives |
+| `--mini_batch_size` | `32` | Mini-batch size for gradient caching |
+| `--max_seq_length` | `512` | Maximum sequence length |
+
+## Evaluation
+
+CLEAR uses a customized version of MTEB for evaluation on cross-lingual retrieval benchmarks.
+
+### Evaluate on XQuAD
+
+```bash
+# Monolingual (English)
+CUDA_VISIBLE_DEVICES=0 mteb run -m ckpt/your-model \
+    --tasks XQuADRetrieval \
+    --languages eng-Latn \
+    --output_folder eval_results/xquad/en-en \
+    --batch_size 32
+
+# Cross-lingual (English query → German documents)
+CUDA_VISIBLE_DEVICES=0 mteb run -m ckpt/your-model \
+    --tasks XQuADCrossRetrieval_EN_LANG \
+    --languages deu-Latn \
+    --output_folder eval_results/xquad/en-de \
+    --batch_size 32
+
+# Cross-lingual (German query → English documents)
+CUDA_VISIBLE_DEVICES=0 mteb run -m ckpt/your-model \
+    --tasks XQuADCrossRetrieval_LANG_EN \
+    --languages deu-Latn \
+    --output_folder eval_results/xquad/de-en \
+    --batch_size 32
+```
+
+### Evaluate on Belebele
+
+```bash
+# English
+CUDA_VISIBLE_DEVICES=0 mteb run -m ckpt/your-model \
+    --tasks BelebeleRetrieval \
+    --languages eng-Latn-eng-Latn \
+    --output_folder eval_results/belebele/en \
+    --batch_size 32
+
+# Other languages
+CUDA_VISIBLE_DEVICES=0 mteb run -m ckpt/your-model \
+    --tasks BelebeleRetrieval \
+    --languages deu-Latn \
+    --output_folder eval_results/belebele/de \
+    --batch_size 32
+```
+
+
+### Batch Evaluation
+
+Use the provided scripts to evaluate across multiple languages:
+
+```bash
+# Evaluate trained model
+bash script/eval_ours_bele_xquad.sh
+
+# Evaluate baseline (no training)
+bash script/eval_notrain_bele_xquad.sh
+```
+
+## Project Structure
+
+```
+CLEAR/
+├── train.py              # Main training script
+├── loss.py               # CLEAR loss implementations
+├── collator.py           # Data collator for cross-lingual data
+├── base_loss.py          # Base loss implementation
+├── requirements.txt      # Python dependencies
+├── dataset/              # Training datasets
+├── ckpt/                 # Model checkpoints
+├── eval_results/         # Evaluation outputs
+├── logs/                 # Training logs
+├── mteb/                 # Custom MTEB package
+├── script/               # Training and evaluation scripts
+└── asset/                # Assets and figures
+```
+
+## Citation
+
+If you find this work useful, please cite:
+
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgements
+
+- [Sentence-Transformers](https://www.sbert.net/)
+- [MTEB](https://github.com/embeddings-benchmark/mteb)

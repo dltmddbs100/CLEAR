@@ -1,0 +1,16 @@
+# Core ML Libraries
+torch==2.6.0
+transformers==4.45.0
+sentence-transformers==3.4.1
+datasets==2.21.0
+accelerate==0.34.2
+wandb
+
+# Utilities
+tqdm==4.67.1
+
+# Local mteb (install from local folder)
+-e ./mteb
+
+# Optional: DeepSpeed support (if using ds_config_path)
+# deepspeed==0.14.4

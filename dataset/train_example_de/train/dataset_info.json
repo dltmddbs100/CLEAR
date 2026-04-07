@@ -1,0 +1,60 @@
+{
+  "citation": "",
+  "description": "",
+  "features": {
+    "en_question": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "paragraphs": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "neg_1": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "neg_2": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "neg_3": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "neg_4": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "neg_5": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "lang_question": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "neg_query_1": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "neg_query_2": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "neg_query_3": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "neg_query_4": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "neg_query_5": {
+      "dtype": "string",
+      "_type": "Value"
+    }
+  },
+  "homepage": "",
+  "license": ""
+}
