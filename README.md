@@ -7,7 +7,6 @@ This repository contains the code for our paper [CLEAR: Cross-Lingual Enhancemen
 ![CLEAR_fig.png](asset/CLEAR_fig.png)
 
 
-
 ## Installation
 
 ### Requirements
@@ -46,7 +45,7 @@ pip install deepspeed==0.14.4
 
 ## Dataset Format
 We support an example training dataset at [here](/dataset/).
-Training data should be in JSONL format with the following columns:
+Training data should be the following format:
 
 | Column | Description |
 |--------|-------------|
@@ -165,7 +164,6 @@ CLEAR/
 ├── train.py              # Main training script
 ├── loss.py               # CLEAR loss implementations
 ├── collator.py           # Data collator for cross-lingual data
-├── base_loss.py          # Base loss implementation
 ├── requirements.txt      # Python dependencies
 ├── dataset/              # Training datasets
 ├── ckpt/                 # Model checkpoints
