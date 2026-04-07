@@ -5,7 +5,7 @@ This repository contains the code for our paper [CLEAR: Cross-Lingual Enhancemen
 
 
 
-[CLEAR_fig.pdf](asset/CLEAR_fig.pdf)
+[CLEAR_fig.png](asset/CLEAR_fig.png)
 
 
 
