@@ -175,7 +175,18 @@ CLEAR/
 
 ## Citation
 
-If you find this work useful, please cite: 
+If you find this work useful, please cite:
+```bibtex
+@misc{lee2026clearcrosslingualenhancementalignment,
+      title={CLEAR: Cross-Lingual Enhancement in Alignment via Reverse-training}, 
+      author={Seungyoon Lee and Minhyuk Kim and Seongtae Hong and Youngjoon Jang and Dongsuk Oh and Heuiseok Lim},
+      year={2026},
+      eprint={2604.05821},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2604.05821}, 
+}
+```
 
 
 ## License
