@@ -110,14 +110,14 @@ CUDA_VISIBLE_DEVICES=0 mteb run -m ckpt/your-model \
     --output_folder eval_results/xquad/en-en \
     --batch_size 32
 
-# Cross-lingual (English query → German documents)
+# Cross-lingual (German query → English documents)
 CUDA_VISIBLE_DEVICES=0 mteb run -m ckpt/your-model \
     --tasks XQuADCrossRetrieval_EN_LANG \
     --languages deu-Latn \
     --output_folder eval_results/xquad/en-de \
     --batch_size 32
 
-# Cross-lingual (German query → English documents)
+# Cross-lingual (English query → German documents)
 CUDA_VISIBLE_DEVICES=0 mteb run -m ckpt/your-model \
     --tasks XQuADCrossRetrieval_LANG_EN \
     --languages deu-Latn \
