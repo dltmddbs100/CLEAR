@@ -1,7 +1,6 @@
 # CLEAR: Cross-Lingual Enhancement in Retrieval via Reverse-training
 
-This repository contains the code for our paper [CLEAR: Cross-Lingual Enhancement in Retrieval via Reverse-training](not_yet). We propose more effective loss function than standard InfoNCE for Cross-lingual Information Retrieval. CLEAR outperforms InfoNCE and its latest variants across Belebele, XQuAD, and XOR-QA benchmarks under various settings.
-
+This repository contains the code for our paper [CLEAR: Cross-Lingual Enhancement in Retrieval via Reverse-training](https://arxiv.org/abs/2604.05821v1). We propose more effective loss function than standard InfoNCE for Cross-lingual Information Retrieval. CLEAR outperforms InfoNCE across Belebele, XQuAD, and XOR-QA benchmarks under various settings.
 
 
 ![CLEAR_fig.png](asset/CLEAR_fig.png)
@@ -73,7 +72,7 @@ You can use HuggingFace datasets by setting `--use_hf_dataset`.
 ```bash
 export OMP_NUM_THREADS=32
 
-CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --nproc_per_node 4 --master_port 25055 train.py \
+CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --nproc_per_node 4 --master_port 25055 script/train.py \
     --model_name_or_path BAAI/bge-m3 \
     --dataset_path dataset/train_example_de \
     --output_dir ckpt/bge-m3-de-CLEAR \
@@ -176,7 +175,7 @@ CLEAR/
 
 ## Citation
 
-If you find this work useful, please cite:
+If you find this work useful, please cite: 
 
 
 ## License
