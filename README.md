@@ -1,6 +1,6 @@
 # CLEAR: Cross-Lingual Enhancement in Retrieval via Reverse-training
 
-This repository contains the code for our paper [CLEAR: Cross-Lingual Enhancement in Retrieval via Reverse-training](https://arxiv.org/abs/2604.05821v1). We propose more effective loss function than standard InfoNCE for Cross-lingual Information Retrieval. CLEAR outperforms InfoNCE across Belebele, XQuAD, and XOR-QA benchmarks under various settings.
+This repository contains the code for our paper [CLEAR: Cross-Lingual Enhancement in Retrieval via Reverse-training](https://arxiv.org/abs/2604.05821). We propose more effective loss function than standard InfoNCE for Cross-lingual Information Retrieval. CLEAR outperforms InfoNCE across Belebele, XQuAD, and XOR-QA benchmarks under various settings.
 
 
 ![CLEAR_fig.png](asset/CLEAR_fig.png)
@@ -177,14 +177,11 @@ CLEAR/
 
 If you find this work useful, please cite:
 ```bibtex
-@misc{lee2026clearcrosslingualenhancementalignment,
-      title={CLEAR: Cross-Lingual Enhancement in Alignment via Reverse-training}, 
-      author={Seungyoon Lee and Minhyuk Kim and Seongtae Hong and Youngjoon Jang and Dongsuk Oh and Heuiseok Lim},
-      year={2026},
-      eprint={2604.05821},
-      archivePrefix={arXiv},
-      primaryClass={cs.CL},
-      url={https://arxiv.org/abs/2604.05821}, 
+@article{lee2026clear,
+  title={CLEAR: Cross-Lingual Enhancement in Alignment via Reverse-training},
+  author={Lee, Seungyoon and Kim, Minhyuk and Hong, Seongtae and Jang, Youngjoon and Oh, Dongsuk and Lim, Heuiseok},
+  journal={arXiv preprint arXiv:2604.05821},
+  year={2026}
 }
 ```
 
